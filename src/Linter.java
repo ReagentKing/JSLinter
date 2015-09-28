@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+import java.util.regex.*;
 public class Linter {
 	
 	public static void main(String[] args) {
@@ -15,9 +15,15 @@ public class Linter {
 			int lineNum = 1;
 			//loop to check the file
 			while (ln != null){
-				if(check(ln)){
+				if(checkSemi(ln)){
 					//if the line should end in a ; and doesn't prints message
 					System.out.println("Line " + lineNum + ". Line should end in a semicolon. It does not.");
+				}
+				if(checkTrail(ln)){
+					System.out.println("Line " + lineNum + ". Line not have trailing whitespace.");
+				}
+				if(checkEOF(ln)){
+					System.out.println("Line " + lineNum + ". Line has more than just a new line.");
 				}
 				//checks to see if there is a next line
 				try{
@@ -39,7 +45,7 @@ public class Linter {
 		}
 }
 
-	public static boolean check(String line){
+	public static boolean checkSemi(String line){
 		//check if line doesn't need a ;
 		if (line.contains("{") || line.contains("}") || line.length()==0){
 			return false;
@@ -49,6 +55,24 @@ public class Linter {
 			return false;
 		}
 		//if not, return true to print the message
+		else{
+			return true;
+		}
+	}
+	
+	public static boolean checkTrail(String line){
+		if(line.matches(".*\\s+$")){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public static boolean checkEOF(String line){
+		if(line.matches("\\n\\c$")){
+			return false;
+		}
 		else{
 			return true;
 		}
