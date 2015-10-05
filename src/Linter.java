@@ -25,6 +25,16 @@ public class Linter {
 				if(checkEOF(ln)){
 					System.out.println("Line " + lineNum + ". Line has more than just a new line.");
 				}
+				if(ln.contains("{")){
+					if(ln.trim().length() == 1){
+						System.out.println("Line " + lineNum + ". Line should have more than {.");
+					}
+				}
+				if(ln.contains("}")){
+					if(ln.trim().length()>1){
+						System.out.println("Line " + lineNum +". Line should only have }.");
+					}
+				}
 				//checks to see if there is a next line
 				try{
 					ln = tokens.nextLine();
@@ -70,11 +80,11 @@ public class Linter {
 	}
 	
 	public static boolean checkEOF(String line){
-		if(line.matches("\\n\\c$")){
-			return false;
+		if(line.matches("^$")){
+			return true;
 		}
 		else{
-			return true;
+			return false;
 		}
 	}
 }

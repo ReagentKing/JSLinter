@@ -12,13 +12,14 @@ function p(a, b, c) {
         }
         j = j + 1
     }
-    var t = a[k]
+    var t = a[k]       
     a[k] = a[b+i]
     a[b+i] = t
     return b+i
 }
 
-function s(a, b, c) {
+function s(a, b, c)
+{
     if (b >= c) {
         return a
     }
@@ -26,7 +27,7 @@ function s(a, b, c) {
     s(a, b, i-1)
     s(a, i+1, c)
     return a
-}
+} var c=2;
 
 var a = [4,3,2,1]
 console.log(a)
