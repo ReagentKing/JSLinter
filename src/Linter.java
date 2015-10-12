@@ -35,6 +35,11 @@ public class Linter {
 						System.out.println("Line " + lineNum +". Line should only have }.");
 					}
 				}
+				if(ln.contains("==")){
+					if(!ln.contains("===")){
+						System.out.println("Line " + lineNum +". Should only use strict equality.");
+					}
+				}
 				//checks to see if there is a next line
 				try{
 					ln = tokens.nextLine();
@@ -80,7 +85,7 @@ public class Linter {
 	}
 	
 	public static boolean checkEOF(String line){
-		if(line.matches("^$")){
+		if(line.matches("\n")){
 			return true;
 		}
 		else{

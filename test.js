@@ -11,6 +11,8 @@ function p(a, b, c) {
             a[b+j] = t
         }
         j = j + 1
+        j==k;
+        test===good;
     }
     var t = a[k]       
     a[k] = a[b+i]
