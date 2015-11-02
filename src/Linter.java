@@ -39,6 +39,10 @@ public class Linter {
 					if(!ln.contains("===")){
 						System.out.println("Line " + lineNum +". Should only use strict equality.");
 					}
+				if(checkQuotes(ln)){
+					System.out.println("Line " + lineNum+ ". Should use single quotes.");
+				}
+				
 				}
 				//checks to see if there is a next line
 				try{
@@ -77,6 +81,15 @@ public class Linter {
 	
 	public static boolean checkTrail(String line){
 		if(line.matches(".*\\s+$")){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public static boolean checkQuotes(String line){
+		if(line.matches(".*\".*\"")&&line.matches(".*'.*")){
 			return true;
 		}
 		else{
