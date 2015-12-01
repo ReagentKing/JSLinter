@@ -39,11 +39,11 @@ public class Linter {
 					if(!ln.contains("===")){
 						System.out.println("Line " + lineNum +". Should only use strict equality.");
 					}
+				}
 				if(checkQuotes(ln)){
 					System.out.println("Line " + lineNum+ ". Should use single quotes.");
 				}
 				
-				}
 				//checks to see if there is a next line
 				try{
 					ln = tokens.nextLine();
@@ -89,10 +89,12 @@ public class Linter {
 	}
 	
 	public static boolean checkQuotes(String line){
-		if(line.matches(".*\".*\"")&&line.matches(".*'.*")){
+		if(line.matches(".*\".*\"")&&!line.matches(".*'.*")){
+			//System.out.println("True: String in  double quotes, contains apostraphe");
 			return true;
 		}
 		else{
+			//System.out.println("False: String doesn't conatain apostraphe or isn't in double quotes");
 			return false;
 		}
 	}
