@@ -11,6 +11,7 @@ public class Linter {
 			Scanner tokens = new Scanner(file);
 			//gets the first line to check
 			String ln = tokens.nextLine();
+			String testln;
 			//instantiates the counter
 			int lineNum = 1;
 			//loop to check the file
@@ -22,9 +23,9 @@ public class Linter {
 				if(checkTrail(ln)){
 					System.out.println("Line " + lineNum + ". Line not have trailing whitespace.");
 				}
-				if(checkEOF(ln)){
-					System.out.println("Line " + lineNum + ". Line has more than just a new line.");
-				}
+				//if(checkEOF(ln)){
+				//	System.out.println("Line " + lineNum + ". Line has more than just a new line.");
+				//}
 				if(ln.contains("{")){
 					if(ln.trim().length() == 1){
 						System.out.println("Line " + lineNum + ". Line should have more than {.");
@@ -43,16 +44,26 @@ public class Linter {
 				if(checkQuotes(ln)){
 					System.out.println("Line " + lineNum+ ". Should use single quotes.");
 				}
-				
+				if(ln.length()>=80){
+					System.out.println("Line " + lineNum + ". Lines should not be longer than 80 characters.");
+				}
+				if(ln.matches(".*;.*;")){
+					System.out.println("Line " + lineNum + ". Use only one statement per line.");
+				}
 				//checks to see if there is a next line
 				try{
-					ln = tokens.nextLine();
+					testln = tokens.nextLine();
+					System.out.println("Next Line: " + testln);
 				}
 				//catch Exception when next line doesn't exist
 				catch (NoSuchElementException e){
+					if(!checkEOF(ln)){
+						System.out.println("Line " + lineNum + ". File "+ args[0] + " should end with a newline character.");
+					}
 					break;
 				}
 				//increment counter
+				ln=testln;
 				lineNum++;
 			}
 			//close the scanner
@@ -89,18 +100,16 @@ public class Linter {
 	}
 	
 	public static boolean checkQuotes(String line){
-		if(line.matches(".*\".*\"")&&!line.matches(".*'.*")){
-			//System.out.println("True: String in  double quotes, contains apostraphe");
+		if(line.matches(".*\".*\".*")&&!line.matches(".*'.*")){
 			return true;
 		}
 		else{
-			//System.out.println("False: String doesn't conatain apostraphe or isn't in double quotes");
 			return false;
 		}
 	}
 	
 	public static boolean checkEOF(String line){
-		if(line.matches("\n")){
+		if(line.matches("")){
 			return true;
 		}
 		else{
